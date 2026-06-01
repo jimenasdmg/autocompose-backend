@@ -10,6 +10,8 @@ const db = require("../firebase/config");
 */
 router.get("/", async (req, res) => {
 
+    console.log("GET /autos");
+
     try {
 
         const snapshot = await db
@@ -44,6 +46,8 @@ router.get("/", async (req, res) => {
 |--------------------------------------------------------------------------
 */
 router.post("/", async (req, res) => {
+
+    console.log("POST /autos");
 
     try {
 
@@ -93,6 +97,8 @@ router.post("/", async (req, res) => {
 */
 router.get("/vendedor/:vendedorId", async (req, res) => {
 
+    console.log(`GET /autos/vendedor/${req.params.vendedorId}`);
+
     try {
 
         const snapshot = await db
@@ -128,6 +134,8 @@ router.get("/vendedor/:vendedorId", async (req, res) => {
 |--------------------------------------------------------------------------
 */
 router.get("/:id", async (req, res) => {
+
+    console.log(`GET /autos/${req.params.id}`);
 
     try {
 
@@ -167,6 +175,8 @@ router.get("/:id", async (req, res) => {
 */
 router.put("/:id", async (req, res) => {
 
+    console.log(`PUT /autos/${req.params.id}`);
+
     try {
 
         await db
@@ -195,6 +205,8 @@ router.put("/:id", async (req, res) => {
 |--------------------------------------------------------------------------
 */
 router.delete("/:id", async (req, res) => {
+
+    console.log(`DELETE /autos/${req.params.id}`);
 
     try {
 

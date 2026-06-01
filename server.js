@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const morgan = require("morgan");
 
 const autosRoutes = require("./routes/autos");
 const mensajesRoutes = require("./routes/mensajes");
@@ -10,6 +11,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
     res.send("API AutoCompose funcionando");

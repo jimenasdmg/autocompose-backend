@@ -5,6 +5,8 @@ const db = require("../firebase/config");
 
 router.get("/", async (req, res) => {
 
+    console.log("GET /mensajes");
+
     try {
 
         const snapshot = await db
@@ -33,6 +35,10 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:usuario1/:usuario2", async (req, res) => {
+
+    const { usuario1, usuario2 } = req.params;
+
+    console.log(`GET /mensajes/${usuario1}/${usuario2}`);
 
     try {
 
@@ -81,6 +87,8 @@ router.get("/:usuario1/:usuario2", async (req, res) => {
 
 router.post("/", async (req, res) => {
 
+    console.log("POST /mensajes");
+
     try {
 
         const nuevoMensaje = {
@@ -110,3 +118,73 @@ router.post("/", async (req, res) => {
 });
 
 module.exports = router;
+
+/*
+|--------------------------------------------------------------------------
+| GET MENSAJE POR ID
+|--------------------------------------------------------------------------
+*/
+router.get("/:id", async (req, res) => {
+
+    console.log(`GET /mensajes/${req.params.id}`);
+
+    try {
+
+        const doc = await db
+            .collection("mensajes")
+            .doc(req.params.id)
+            .get();
+
+        if (!doc.exists) {
+
+            return res.status(404).json({
+                mensaje: "Mensaje no encontrado"
+            });
+
+        }
+
+        res.json({
+            id: doc.id,
+            ...doc.data()
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            error: error.message
+        });
+
+    }
+
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| PUT ACTUALIZAR MENSAJE
+|--------------------------------------------------------------------------
+*/
+router.put("/:id", async (req, res) => {
+
+    console.log(`PUT /mensajes/${req.params.id}`);
+
+    try {
+
+        await db
+            .collection("mensajes")
+            .doc(req.params.id)
+            .update(req.body);
+
+        res.json({
+            mensaje: "Mensaje actualizado correctamente"
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            error: error.message
+        });
+
+    }
+
+});
