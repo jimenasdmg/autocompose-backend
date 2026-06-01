@@ -19,6 +19,8 @@ app.use("/autos", autosRoutes);
 app.use("/mensajes", mensajesRoutes);
 app.use("/alertas", alertasRoutes);
 
-app.listen(3000, () => {
-    console.log("Servidor ejecutándose en puerto 3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Servidor ejecutándose en puerto ${PORT}`);
 });
